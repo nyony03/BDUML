@@ -1,4 +1,8 @@
-import java.util.List; 
+package model.catalogue;
+
+import model.produit.I_Produit;
+
+import java.util.List;
 
 public interface I_Catalogue {
 
