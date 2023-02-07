@@ -82,7 +82,7 @@ public class Catalogue implements I_Catalogue{
         String[] nomProduits = new String[produits.size()];
         int i = 0;
         for(I_Produit produit : produits){
-            nomProduits[i] += produit.getNom();
+            nomProduits[i] = produit.getNom();
             i++;
         }
         return nomProduits;
