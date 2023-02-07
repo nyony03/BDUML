@@ -10,6 +10,7 @@ public class Produit implements I_Produit {
     private Double tauxTVA = 0.2;
 
     public Produit(String nom, Double prixUnitaireHT, int quantiteStock) {
+        nom = nom.replaceAll("\\s", " ");
         this.nom = nom.trim();
         this.prixUnitaireHT = prixUnitaireHT;
         this.quantiteStock = quantiteStock;
