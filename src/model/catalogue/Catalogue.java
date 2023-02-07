@@ -17,7 +17,7 @@ public class Catalogue implements I_Catalogue{
 
     @Override
     public boolean addProduit(I_Produit produit) {
-        if(produits.contains(produit))
+        if(produits.contains(produit) || produit == null || produit.getPrixUnitaireHT() <= 0 || produit.getQuantite() < 0)
             return false;
         produits.add(produit);
         return true;
@@ -25,6 +25,8 @@ public class Catalogue implements I_Catalogue{
 
     @Override
     public boolean addProduit(String nom, double prix, int qte) {
+        if (prix <= 0 || qte < 0)
+            return false;
         Produit produit = new Produit(nom, prix, qte);
         return addProduit(produit);
     }
@@ -56,7 +58,7 @@ public class Catalogue implements I_Catalogue{
     @Override
     public boolean acheterStock(String nomProduit, int qteAchetee) {
         for(I_Produit produit : produits){
-            if(produit.getNom().equals(nomProduit)){
+            if(produit.getNom().equals(nomProduit) && qteAchetee > 0){
                 produit.ajouter(qteAchetee);
                 return true;
             }
@@ -67,7 +69,7 @@ public class Catalogue implements I_Catalogue{
     @Override
     public boolean vendreStock(String nomProduit, int qteVendue) {
         for(I_Produit produit : produits){
-            if(produit.getNom().equals(nomProduit)){
+            if(produit.getNom().equals(nomProduit) && qteVendue > 0 && qteVendue <= produit.getQuantite()){
                 produit.enlever(qteVendue);
                 return true;
             }
@@ -92,7 +94,7 @@ public class Catalogue implements I_Catalogue{
         for(I_Produit produit : produits){
             montantTotalTTC += produit.getPrixStockTTC();
         }
-        return montantTotalTTC;
+        return Math.round(montantTotalTTC * 100.0) / 100.0;
     }
 
     @Override
