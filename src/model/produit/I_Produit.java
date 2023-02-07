@@ -10,5 +10,4 @@ public interface I_Produit {
 	public abstract double getPrixUnitaireTTC();
 	public abstract double getPrixStockTTC();
 	public abstract String toString();
-
 }

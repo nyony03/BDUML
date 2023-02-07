@@ -26,21 +26,20 @@ public class Catalogue implements I_Catalogue{
     @Override
     public boolean addProduit(String nom, double prix, int qte) {
         Produit produit = new Produit(nom, prix, qte);
-
-        if(produits.contains(produit))
-            return false;
-
-        produits.add(produit);
-        return true;
+        return addProduit(produit);
     }
 
     @Override
     public int addProduits(List<I_Produit> l) {
-        if(produits.containsAll(l))
+        if (l == null)
             return 0;
-
-        produits.addAll(l);
-        return produits.size();
+        int nbProduitAjoute = 0;
+        for (I_Produit produit : l) {
+            if (addProduit(produit)) {
+                nbProduitAjoute ++;
+            }
+        }
+        return nbProduitAjoute;
     }
 
     @Override
@@ -91,7 +90,7 @@ public class Catalogue implements I_Catalogue{
     public double getMontantTotalTTC() {
         double montantTotalTTC = 0;
         for(I_Produit produit : produits){
-            montantTotalTTC += produit.getPrixUnitaireTTC() * produit.getQuantite();
+            montantTotalTTC += produit.getPrixStockTTC();
         }
         return montantTotalTTC;
     }
