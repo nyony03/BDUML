@@ -18,4 +18,5 @@ public interface I_Catalogue {
 
 	public abstract void clear();
 
+	boolean isEmpty();
 }

@@ -4,9 +4,9 @@ import model.produit.I_Produit;
 import model.produit.Produit;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 public class Catalogue implements I_Catalogue{
     private Collection<I_Produit> produits;
@@ -85,6 +85,7 @@ public class Catalogue implements I_Catalogue{
             nomProduits[i] = produit.getNom();
             i++;
         }
+        Arrays.sort(nomProduits);
         return nomProduits;
     }
 
@@ -100,5 +101,30 @@ public class Catalogue implements I_Catalogue{
     @Override
     public void clear() {
         produits.clear();
+    }
+
+    @Override
+    public boolean isEmpty(){
+        if(this.produits.isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        String affichage = "";
+        for(I_Produit produit : produits){
+            String productName = " ";
+            if(produit.getNom().contains("\t")){
+                productName = produit.getNom().replace("\t", " ");
+            }else{
+                productName = produit.getNom();
+            }
+            affichage += productName + " - prix HT : " + String.format("%.2f", produit.getPrixUnitaireHT())+ " € - prix TTC : "
+                    + String.format("%.2f", produit.getPrixUnitaireTTC()) + " € - quantité en stock : " + produit.getQuantite() + "\n";
+        }
+        affichage += "\nMontant total TTC du stock : " + String.format("%.2f", getMontantTotalTTC()) + " €";
+        return affichage;
     }
 }
