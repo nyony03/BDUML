@@ -40,7 +40,7 @@ public class Catalogue implements I_Catalogue{
             return 0;
 
         produits.addAll(l);
-        return 1;
+        return produits.size();
     }
 
     @Override
