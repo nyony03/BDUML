@@ -11,7 +11,9 @@ import java.util.List;
 public class Catalogue implements I_Catalogue{
     private Collection<I_Produit> produits;
 
-    public Catalogue() {
+    public static Catalogue instance = null;
+
+    protected Catalogue() {
         this.produits = new ArrayList<>();
     }
 
@@ -127,4 +129,12 @@ public class Catalogue implements I_Catalogue{
         affichage += "\nMontant total TTC du stock : " + String.format("%.2f", getMontantTotalTTC()) + " €";
         return affichage;
     }
+
+    public static Catalogue getInstance() {
+        if (instance == null) {
+            instance = new Catalogue();
+        }
+        return instance;
+    }
+
 }
