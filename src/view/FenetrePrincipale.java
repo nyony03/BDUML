@@ -1,5 +1,9 @@
 package view;
 
+import Controler.AchatOuVenteController;
+import Controler.CreateOrDeleteController;
+import Controler.EtatStockController;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -17,6 +21,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btAchat;
 	private JButton btVente;
 	private JButton btQuitter;
+	private EtatStockController etatStock;
+	private AchatOuVenteController gestionCommerce;
+	private CreateOrDeleteController gestionProduit;
 
 	
 	public FenetrePrincipale() {
@@ -64,6 +71,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 		
 		addWindowListener(this);
 		setVisible(true);
+
+		etatStock = new EtatStockController();
+		gestionCommerce = new AchatOuVenteController();
+		gestionProduit = new CreateOrDeleteController();
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -75,7 +86,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };
 		
 		if (e.getSource() == btAfficher)
-			new FenetreAffichage("ajourd'hui nous allons faire de la programmation en 5 couches");
+			new FenetreAffichage(etatStock.demandeAffichageStock());
 		if (e.getSource() == btNouveauProduit)
 //			new view.FenetreNouveauProduit(tabCategories);
 			new FenetreNouveauProduit();
