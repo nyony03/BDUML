@@ -37,12 +37,14 @@ public class ProduitDAO {
         Collection<I_Produit> produits = new ArrayList<>();
         connexionBD.st = connexionBD.getCn().createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
         connexionBD.rs = connexionBD.st.executeQuery("SELECT * FROM produits");
+        connexionBD.rs.first();
         while (!connexionBD.rs.isAfterLast()) {
             produits.add(new Produit(
                     connexionBD.rs.getString(2),
                     connexionBD.rs.getDouble(3),
                     connexionBD.rs.getInt(4)
                     ));
+            connexionBD.rs.next();
         }
         return produits;
     }
