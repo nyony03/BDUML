@@ -27,7 +27,7 @@ public class Catalogue implements I_Catalogue{
 
     @Override
     public boolean addProduit(String nom, double prix, int qte) {
-        if (prix <= 0 || qte < 0)
+        if (nom.isBlank() || prix <= 0 || qte < 0)
             return false;
         Produit produit = new Produit(nom, prix, qte);
         return addProduit(produit);
