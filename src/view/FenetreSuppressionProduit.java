@@ -1,5 +1,7 @@
 package view;
 
+import Controler.CreerSupprimerController;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -8,6 +10,7 @@ public class FenetreSuppressionProduit extends JFrame implements ActionListener 
 
 	private JButton btSupprimer;
 	private JComboBox<String> combo;
+	private CreerSupprimerController creerSupprimerController;
 	
 	public FenetreSuppressionProduit(String lesProduits[]) {
 		
@@ -26,10 +29,21 @@ public class FenetreSuppressionProduit extends JFrame implements ActionListener 
 		btSupprimer.addActionListener(this);
 
 		this.setVisible(true);
+
+		creerSupprimerController = new CreerSupprimerController();
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		this.dispose();
+		try {
+			if (creerSupprimerController.supprimerProduit(combo.getSelectedItem().toString())) {
+				new FenetreAffichage(combo.getSelectedItem().toString()+ " supprimé");
+			} else {
+				new FenetreAffichage("Erreur de saisie");
+			}
+		} catch (Exception exception) {
+		new FenetreAffichage("Erreur de saisie");
+	}
+
 	}
 
 }

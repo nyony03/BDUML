@@ -1,7 +1,7 @@
 package view;
 
 import Controler.AchatOuVenteController;
-import Controler.CreateOrDeleteController;
+import Controler.CreerSupprimerController;
 import Controler.EtatStockController;
 
 import java.awt.*;
@@ -22,8 +22,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btVente;
 	private JButton btQuitter;
 	private EtatStockController etatStock;
-	private AchatOuVenteController gestionCommerce;
-	private CreateOrDeleteController gestionProduit;
+	private CreerSupprimerController creerSupprimerController;
+	private AchatOuVenteController achatOuVenteController;
 
 	
 	public FenetrePrincipale() {
@@ -73,8 +73,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 		setVisible(true);
 
 		etatStock = new EtatStockController();
-		gestionCommerce = new AchatOuVenteController();
-		gestionProduit = new CreateOrDeleteController();
+		creerSupprimerController = new CreerSupprimerController();
+		achatOuVenteController = new AchatOuVenteController();
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -91,15 +91,15 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 //			new view.FenetreNouveauProduit(tabCategories);
 			new FenetreNouveauProduit();
 		if (e.getSource() == btSupprimerProduit)
-			new FenetreSuppressionProduit(tabProduits);
+			new FenetreSuppressionProduit(creerSupprimerController.demandeSuppression());
 //		if (e.getSource() == btNouvelleCategorie)
 //			new FenetreNouvelleCategorie();
 //		if (e.getSource() == btSupprimerCategorie)
 //			new FenetreSuppressionCategorie(tabCategories);
 		if (e.getSource() == btAchat)
-			new FenetreAchat(tabProduits);
+			new FenetreAchat(achatOuVenteController.demandeAchat());
 		if (e.getSource() == btVente)
-			new FenetreVente(tabProduits);
+			new FenetreVente(achatOuVenteController.demandeVente());
 		if (e.getSource() == btQuitter){
 			System.out.println("Au revoir");
 			System.exit(0);

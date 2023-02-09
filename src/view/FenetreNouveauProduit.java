@@ -1,5 +1,7 @@
 package view;
 
+import Controler.CreerSupprimerController;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -11,6 +13,7 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 	private JTextField txtQte;
 //	private JComboBox<String> combo;
 	private JButton btValider;
+	private CreerSupprimerController creerSupprimerController;
 
 //	public view.FenetreNouveauProduit(String[] lesCategories) {
 	public FenetreNouveauProduit() {	
@@ -45,10 +48,19 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
 		btValider.addActionListener(this);
 		setVisible(true);
+
+		creerSupprimerController = new CreerSupprimerController();
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		this.dispose();
+		try {
+			if (creerSupprimerController.demandeAjoutProduit(txtNom.getText(), Integer.parseInt(txtPrixHT.getText()), Integer.parseInt(txtQte.getText()))) {
+				new FenetreAffichage(txtNom.getText()+ " ajouté");
+			} else {
+				new FenetreAffichage("Erreur de saisie");
+			}
+		} catch (Exception exception) {
+			new FenetreAffichage("Erreur de saisie");
+		}
 	}
-
 }

@@ -1,5 +1,7 @@
 package view;
 
+import Controler.AchatOuVenteController;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -9,6 +11,7 @@ public class FenetreVente extends JFrame implements ActionListener {
 	private JButton btVente;
 	private JTextField txtQuantite;
 	private JComboBox<String> combo;
+	private AchatOuVenteController achatOuVenteController;
 
 	public FenetreVente(String[] lesProduits) {
 		setTitle("Vente");
@@ -29,10 +32,20 @@ public class FenetreVente extends JFrame implements ActionListener {
 
 		btVente.addActionListener(this);
 		this.setVisible(true);
+
+		achatOuVenteController = new AchatOuVenteController();
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		this.dispose();
-	}
+		try {
+			if (achatOuVenteController.vendreProduit(combo.getSelectedItem().toString(), Integer.parseInt(txtQuantite.getText()))) {
+				new FenetreAffichage(combo.getSelectedItem().toString()+ " vendu");
+			} else {
+				new FenetreAffichage("Erreur de saisie");
+			}
+		} catch (Exception exception) {
+			new FenetreAffichage("Erreur de saisie");
+		}
 
+	}
 }
